@@ -1,0 +1,108 @@
+info: Hashed Verified for user : hashedAdmin
+info: Hashed Verified for user : hashedAdmin
+info: JWT Token verified. User Authorized
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T14:48:05.151Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-13T14:48:05.225Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:24:23.254Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-13T15:24:23.329Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:25:00.008Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:27:48.835Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-13T15:27:48.888Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:33:50.691Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:34:20.434Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:40:22.225Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:41:09.199Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-13T15:41:41.148Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-13T15:41:41.223Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:23:40.305Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:26:09.479Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:30:56.713Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:32:19.815Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:33:08.771Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:38:30.185Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:39:19.875Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:40:48.358Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:42:46.466Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:42:46.519Z"}
+error: Forbidden access {"timestamp":"2023-12-14T19:49:57.234Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T19:50:53.135Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:51:58.491Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:51:58.529Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:52:22.430Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:52:25.513Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T19:54:50.126Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T19:57:50.746Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:58:07.978Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-14T19:58:07.996Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:58:08.019Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T19:59:17.248Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T19:59:20.694Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-14T19:59:20.705Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T19:59:20.720Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T20:06:46.060Z"}
+info: User loggerAdmin signed up as admin {"timestamp":"2023-12-14T20:07:24.628Z"}
+info: User loggerAdmin2 signed up as admin {"timestamp":"2023-12-14T20:12:35.986Z"}
+info: User loggerAdmin signed up as admin {"timestamp":"2023-12-14T20:15:14.619Z"}
+info: User loggerAdmin2 signed up as admin {"timestamp":"2023-12-14T20:16:44.691Z"}
+info: User loggerAdmin signed up as admin {"timestamp":"2023-12-14T20:19:42.252Z"}
+info: User loggerAdmin2 signed up as admin {"timestamp":"2023-12-14T20:32:47.836Z"}
+info: Email successfully verified for user undefined {"timestamp":"2023-12-14T20:36:26.755Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T22:25:35.334Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-14T22:25:35.384Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:25:35.422Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:25:39.004Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:25:42.290Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:26:09.614Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:26:54.728Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:26:56.911Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:27:00.188Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-14T22:27:13.967Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-14T22:27:13.997Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:14.026Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:17.241Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:19.613Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:35.471Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:45.453Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:27:57.972Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:28:24.478Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:29:17.478Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-14T22:29:17.560Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-15T00:50:01.820Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-15T00:50:01.844Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T00:50:01.876Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T00:50:05.418Z"}
+info: Email successfully verified for the user with email undefined {"timestamp":"2023-12-15T01:10:15.067Z"}
+info: Email successfully verified for the user with email undefined {"timestamp":"2023-12-15T01:15:25.486Z"}
+info: Email successfully verified for the user with email undefined {"timestamp":"2023-12-15T01:16:16.089Z"}
+info: Email successfully verified for the user with email undefined {"timestamp":"2023-12-15T01:17:44.497Z"}
+info: Email successfully verified for the user with email undefined {"timestamp":"2023-12-15T01:22:16.930Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:23:48.367Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:25:09.448Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:39:54.860Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:41:02.337Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:42:59.360Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:45:13.567Z"}
+info: Email successfully verified for the user with username piyush {"timestamp":"2023-12-15T01:48:01.822Z"}
+info: Access granted to the resoure as the user piyush is NON_ADMIN {"timestamp":"2023-12-15T01:48:01.856Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-15T01:49:13.106Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-15T01:49:13.120Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:49:13.163Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:49:13.168Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:51:15.458Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:51:15.465Z"}
+info: Navigated to Admin Home page {"timestamp":"2023-12-15T01:51:15.466Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:53:17.237Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:53:17.244Z"}
+info: Navigated to Admin Home page {"timestamp":"2023-12-15T01:53:17.245Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:53:19.515Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:53:19.518Z"}
+info: Navigated to Departments {"timestamp":"2023-12-15T01:53:19.519Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:54:45.633Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:54:45.641Z"}
+info: Navigated to Departments {"timestamp":"2023-12-15T01:54:45.642Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:54:48.533Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:54:48.535Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-15T01:54:48.536Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:54:50.367Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:54:50.369Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-15T01:54:50.370Z"}

@@ -10,11 +10,48 @@ var nodmailer = require ('nodemailer');
 var crypto = require ('crypto');
 var expressValidator = require ('express-validator');
 var  sweetalert = require('sweetalert2');
+const cookieParser = require('cookie-parser');
+const winston = require('winston');
+const morgan = require('morgan');
+const auditMiddleware = require('./controllers/middleware/auditMiddleware.js');
+const https = require('https');
+const fs = require('fs');
+const privateKey = fs.readFileSync('./certs/server.key', 'utf8');
+const certificate = fs.readFileSync('./certs/server.crt', 'utf8');
+const credentials = { key: privateKey, cert: certificate };
+const httpsServer = https.createServer(credentials, app);
+const port=3000;
 var app = express();
+const helmet = require('helmet');
+
+
+const serverOptions = {
+  key: fs.readFileSync('localhost.key'),
+  cert: fs.readFileSync('localhost.crt')
+};
+var server = https.createServer(serverOptions, app);
+
+
+
+
+app.use(helmet()); // sets HTTP Headers for security against CSRF, CORS
+app.use(helmet({
+    frameguard: {
+      action: 'deny' //mitigation for ClickJAcking
+    }
+  }));
 
 
 
 var bodyParser = require ('body-parser');
+app.use(cookieParser());
+
+
+// HTTP request logging with Morgan
+app.use(morgan('combined'));
+
+// Custom auditing middleware
+app.use(auditMiddleware);
 
 var  login = require ('./controllers/login');
 var  home = require ('./controllers/home');
@@ -32,12 +69,14 @@ var landing = require ('./controllers/landing');
 var complain = require ('./controllers/complain');
 var inbox = require ('./controllers/inbox');
 var appointment = require ('./controllers/appointment');
-
+var usersignup=require('./controllers/usersignup.js');
+var userlogin=require('./controllers/userlogin.js')
 var receipt = require ('./controllers/receipt');
 var chat = require ('./controllers/chat');
+var userhome=require('./controllers/userhome.js');
+var userverify=require('./controllers/userverify.js')
 
 var app = express();
-
 
 app.set('view engine ', 'ejs');
 
@@ -49,12 +88,22 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cookie());
 //app.use(expressValidator());
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    sameSite: 'Strict', // or 'Lax'
+    secure: true, // ensure cookies are only sent over HTTPS
+  },
+}));
+
+// var server =app.listen(3000 , function(){ ---Default
+
+//   console.log('server started');
+// });
 
 
-var server =app.listen(3000 , function(){
-
-    console.log('server started');
-});
 
 app.use('/login' ,login);
 app.use('/home' , home);
@@ -71,5 +120,17 @@ app.use ('/complain',complain);
 app.use ('/inbox',inbox);
 app.use ('/appointment',appointment);
 app.use('/receipt',receipt);
+app.use('/usersignup',usersignup);
+app.use('/userlogin',userlogin);
+app.use('/userhome',userhome);
+app.use('/userverify',userverify)
 
 // app.use('/doctors/add_doctor',add_doc);
+
+app.listen(3000,serverOptions,function(){
+  console.log('Server Started')
+})
+
+// server.listen(port, () => {
+//   console.log(`Server is running on https://localhost:${port}`);
+// });

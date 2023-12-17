@@ -39,10 +39,20 @@
 	</head>
 	<body>
 		<div class="login-form">
-			<h1>Login Form</h1>
+			<h1>Admin Login Form</h1>
 			<form action="" method="POST">
 				<input type="text" name="username" placeholder="Username" >
 				<input type="password" name="password" placeholder="Password" >
+				<% if(typeof InvalidInputAlert != 'undefined') { %>
+					<% InvalidInputAlert.forEach(function(error) { %>
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+							<%= error.msg %>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							  <span aria-hidden="true">×</span>
+							</button>
+						  </div>
+					<% }) %>
+				<% } %>
 				<input type="submit" value="Log In" onclick="click()">
 				<script>
 					function click(){
@@ -51,10 +61,10 @@
 				</script>
 				<br>
 				<div>
-					<a href="/signup">Sign Up</a>
+					<a href="/signup">Admin Sign Up</a>
 					<br>
 					<br>
-					<a href="http://localhost:3000/resetpassword">Forget Password</a>
+					<a href="http://localhost:3000/resetpassword">Forgot Password</a>
 				</div>
 				
 				

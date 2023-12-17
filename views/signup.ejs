@@ -3,6 +3,7 @@
 
 
 <!-- register24:03-->
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -16,6 +17,34 @@
 		<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
 </head>
+<!-- <script>
+    const form = document.querySelector('form')
+    const errorMessages = document.querySelector(".errors");
+    const success = document.getElementById('success')
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
+        errorMessages.innerHTML = ''
+        success.innerHTML = ''
+
+        const formData = new FormData(form)
+        fetch("/submit", {
+            method: 'POST',
+            headers: {
+                'Content Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: formData.get("username"),
+                password: formData.get("password")
+            })
+        }).then((res) => res.json())
+        .then((data)=>{
+            console.log(data)
+        })
+
+    })
+
+</script> -->
 
 <body>
     <div class="main-wrapper  account-wrapper">
@@ -23,7 +52,7 @@
             <div class="account-center">
                 <div class="account-box">
                     <form action="" method="Post" class="form-signin">
-						<div class="account-logo">
+                        <div class="account-logo">
                             <a href="index-2.html"><img src="assets/img/logo-dark.png" alt=""></a>
                         </div>
                         <div class="form-group">
@@ -37,8 +66,26 @@
                         <div class="form-group">
                             <label>Password</label>
                             <input type="password" class="form-control" name="password">
+
                         </div>
-                        
+                        <div class="form-group">
+                            <label>Secret</label>
+                            <input type="password" class="form-control" name="secret">
+                        </div>
+
+
+                        <% if(typeof PasswordAlert != 'undefined') { %>
+                            <% PasswordAlert.forEach(function(error) { %>
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <%= error.msg %>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                  </div>
+                            <% }) %>
+                        <% } %>
+
+
                         <div class="form-group checkbox">
                             <label>
                                 <input type="checkbox"> I have read and agree the Terms & Conditions
@@ -58,11 +105,12 @@
         </div>
     </div>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
-	<script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/popper.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 
 
 <!-- register24:03-->
+
 </html>

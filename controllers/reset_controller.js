@@ -1,31 +1,52 @@
 var express = require('express');
-var flash = require ('flash');
+var flash = require('flash');
 var router = express.Router();
 var bodyParser = require('body-parser');
 //var async = require ('async');
 var nodemailer = require('nodemailer');
 //var crypto = require ('crypto');
-var randomToken = require ('random-token');
-var db = require.main.require ('./models/db_controller');
+var randomToken = require('random-token');
+var db = require.main.require('./models/db_controller');
+const { body, check, validationResult } = require('express-validator');
+const rateLimit = require('express-rate-limit');
+const resetLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit to 5 requests per session
+    message: 'Too many signup requests , please try again after 15 minutes',
+});
 
-router.get('/',function(req,res){
+router.get('/', function (req, res) {
     res.render('resetpassword.ejs');
 });
 
-router.post('/',function(req,res){
+router.post('/', resetLimiter, [body('email').isEmail().withMessage('Invalid Email')
+], function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const errorMsg = errors.array().map(error => error.msg);
+       
+        
+        const alertMsg = errors.array()
+        res.render('resetpassword.ejs', {
+            PasswordAlert: alertMsg
+        })
+        // res.status(400).json({ errorMsg });
 
-    var email = req.body.email;
-    db.findOne(email,function(err,result1){
-       // console.log(result);
-        if(!result1){
-           console.log("Mail does not exist");
-            res.redirect('back');
-        }
-        var id = result1[0].id;
-        var email = result1[0].email;
-        var token = randomToken(8);
-        db.temp(id,email,token,function(err,result2){
-            var output =  `
+    }
+    else {
+
+        var email = req.body.email;
+        db.findOne(email, function (err, result1) {
+            // console.log(result);
+            if (!result1) {
+                console.log("Mail does not exist");
+                res.redirect('back');
+            }
+            var id = result1[0].id;
+            var email = result1[0].email;
+            var token = randomToken(8);
+            db.temp(id, email, token, function (err, result2) {
+                var output = `
             <p>Dear User, </p>
             <p>Your are receiving this email because you had requested to reset your password.</p>
             <p>Your new password has been generated. Please login using the given new password.</p>
@@ -40,38 +61,39 @@ router.post('/',function(req,res){
             <p>Regards,</p>
             <p>H Manager</p>
         `;
-        
-        var transporter = nodemailer.createTransport({
-            service : 'gmail',
-            auth: {
-                user: '',
-                pass: ''
-            }
 
-        });
+                var transporter = nodemailer.createTransport({
+                    service: 'gmail',
+                    auth: {
+                        user: '',
+                        pass: ''
+                    }
 
-        var mailOptions = {
+                });
 
-            from: 'zihad.24bd@gmail.com', // sender address
-            to: email, // list of receivers
-            subject: 'Password Reset', // Subject line
-            html: output// plain text body
-        };
+                var mailOptions = {
 
-        transporter.sendMail(mailOptions,function(err,info){
-            if(err) {
-                return console.log(err);
-            }
-            console.log(info);
-        });
+                    from: 'zihad.24bd@gmail.com', // sender address
+                    to: email, // list of receivers
+                    subject: 'Password Reset', // Subject line
+                    html: output// plain text body
+                };
 
-        });
+                transporter.sendMail(mailOptions, function (err, info) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                    console.log(info);
+                });
 
-    })
+            });
 
-    res.send("A Token has been sent to your account");
-    
-    
+        })
+
+        res.send("A Token has been sent to your account");
+    }
+
+
 });
 
 

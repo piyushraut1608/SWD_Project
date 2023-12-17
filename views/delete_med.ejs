@@ -268,6 +268,16 @@
                                 <button class="btn btn-primary submit-btn">Delete Medicine</button>
                                 <% } %>
                             </div>
+                            <% if(typeof InvalidMedSearchAlert != 'undefined') { %>
+                                <% InvalidMedSearchAlert.forEach(function(error) { %>
+                                  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <%= error.msg %>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                    </div>
+                                <% }) %>
+                              <% } %>
                         </form>
                     </div>
                 </div>

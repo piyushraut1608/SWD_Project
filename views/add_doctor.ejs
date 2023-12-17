@@ -305,6 +305,17 @@
                                 <label>Short Biography</label>
                                 <textarea class="form-control" rows="3" cols="30" name="biography"></textarea>
                             </div>
+
+                            <% if(typeof InvalidDocAlert != 'undefined') { %>
+                                <% InvalidDocAlert.forEach(function(error) { %>
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <%= error.msg %>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                          <span aria-hidden="true">×</span>
+                                        </button>
+                                      </div>
+                                <% }) %>
+                            <% } %>
                    
                             <div class="m-t-20 text-center">
                                 <button class="btn btn-primary submit-btn">Create Doctor</button>
