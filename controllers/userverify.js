@@ -32,32 +32,27 @@ router.post('/',verifyLimiter,[
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMsg = errors.array().map(error => error.msg);
-        //;
         const alertMsg = errors.array()
         res.render('verify.ejs', {
             VerifyAlert: alertMsg
         })
-
     }
     else {
-   
-    //var id = req.body.id;
+    // The following function logic verifies the token received in the email, while login of the employee user.
     var username = req.body.id;
     var token = req.body.token;
-    // db.matchtoken(id,token,function(err,result){
         db.matchtokenUser(username,token,function(err,result){
-        console.log(result);
+//    console.log(result);
         if (result.length > 0){
             var email = result[0].email;
             var email_status = "verified";
             db.updateverifyUsers (email,email_status,function(err,result1){
                 logger.info('Email successfully verified for the user with username '+username)
-                
-                        
                 res.redirect('/userhome');
             });
         }
         else {
+            logger.error('OTP did not match for the user with email '+email+' while email verification')
             res.send('OTP did not match');
         }
     });}

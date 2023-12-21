@@ -39,13 +39,11 @@ router.post('/',verifyLimiter,[
 
     }
     else {
-   
-    //var id = req.body.id;
+    // The following function logic verifies the token received in the email, while registration of the admin.
     var email = req.body.id;
     var token = req.body.token;
-    // db.matchtoken(id,token,function(err,result){
         db.matchtoken(email,token,function(err,result){
-        console.log(result);
+//    console.log(result);
         if (result.length > 0){
             var email = result[0].email;
             var email_status = "verified";
@@ -55,6 +53,7 @@ router.post('/',verifyLimiter,[
             });
         }
         else {
+            logger.error('Token did not match for the admin user with email '+email+' while email verification')
             res.send('Token did not match');
         }
     });}

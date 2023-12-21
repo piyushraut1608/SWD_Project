@@ -4,7 +4,10 @@ var cookie = require('cookie-parser');
 var db = require.main.require('./models/db_controller');
 const { check, validationResult, body } = require('express-validator');
 const { authorizeJWT } = require('./middleware/authMiddleware.js')
+const {isAdmin}=require('./middleware/rbacMiddleware.js');
+
 const rateLimit = require('express-rate-limit');
+const { logger } = require('./middleware/loggingMiddleware.js');
 const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 5, // limit to 5 requests per session
@@ -20,19 +23,19 @@ router.get('*', function (req, res, next) {
     }
 });
 
-router.get('/', function (req, res) {
+router.get('/',isAdmin,authorizeJWT, function (req, res) {
     db.getallmed(function (err, result) {
         res.render('store.ejs', { list: result });
     })
 
 });
 
-router.get('/add_med', function (req, res) {
+router.get('/add_med',isAdmin,authorizeJWT, function (req, res) {
     res.render('add_med.ejs');
 });
 
 
-router.post('/add_med', [
+router.post('/add_med',isAdmin,authorizeJWT, [
     body('name').isAlpha().trim().escape(),
     body('p_date').isDate().trim().escape(),
     body('expire').isAlpha().trim().escape(),
@@ -42,7 +45,6 @@ router.post('/add_med', [
 ], function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('add_med.ejs', {
             InvalidMedSearchAlert: alertMsg,
@@ -58,21 +60,21 @@ router.post('/add_med', [
         var quantity = req.body.quantity;
 
         db.addMed(name, p_date, expire, e_date, price, quantity, function (err, result) {
+            logger.info('Medicines Added by user '+req.cookies['username'])
             res.redirect('/store');
         });
     }
 
 });
 
-router.get('/edit_med/:id', function (req, res) {
+router.get('/edit_med/:id',isAdmin,authorizeJWT, function (req, res) {
     var id = req.params.id;
     db.getMedbyId(id, function (err, result) {
-
         res.render('edit_med.ejs', { list: result });
     });
 });
 
-router.post('/edit_med/:id', [
+router.post('/edit_med/:id',isAdmin,authorizeJWT, [
     body('name').isAlpha().trim().escape(),
     body('p_date').isDate().trim().escape(),
     body('expire').isAlpha().trim().escape(),
@@ -83,7 +85,6 @@ router.post('/edit_med/:id', [
 ], function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('edit_med.ejs', {
             InvalidMedSearchAlert: alertMsg,
@@ -93,27 +94,52 @@ router.post('/edit_med/:id', [
     else {
         var id = req.params.id;
         db.editmed(id, req.body.name, req.body.p_date, req.body.expire, req.body.e_date, req.body.price, req.body.quantity, function (err, result) {
+            logger.info('Medicine with ID '+id+' Edited by user '+req.cookies['username'])
             res.redirect('/store');
         });
     }
 
 });
 
-router.get('/delete_med/:id', function (req, res) {
+router.get('/delete_med/:id',isAdmin,authorizeJWT, [
+    body('id').isNumeric().trim().escape()
+
+],function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const alertMsg = errors.array()
+        res.render('delete_med.ejs', {
+            InvalidMedSearchAlert: alertMsg,
+            list:''
+        })
+    }else{
     var id = req.params.id;
     db.getMedbyId(id, function (err, result) {
 
         res.render('delete_med.ejs', { list: result });
     });
+}
 });
 
 
-router.post('/delete_med/:id', function (req, res) {
+router.post('/delete_med/:id',isAdmin,authorizeJWT,[
+    body('id').isNumeric().trim().escape()
+
+], function (req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        const alertMsg = errors.array()
+        res.render('delete_med.ejs', {
+            InvalidMedSearchAlert: alertMsg,
+            list:''
+        })
+    }else{
     var id = req.params.id;
 
     db.deletemed(id, function (err, result) {
+        logger.info('Medicine with ID '+id+' Deleted by user '+req.cookies['username'])
         res.redirect('/store');
-    });
+    });}
 
 });
 
@@ -123,7 +149,6 @@ router.post('/search', [
 ], function (req, res) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('store.ejs', {
             InvalidMedSearchAlert: alertMsg,
@@ -133,8 +158,8 @@ router.post('/search', [
     else {
         var key = req.body.search;
         db.searchmed(key, function (err, result) {
-            console.log(result);
-
+            //console.log(result);
+            logger.info('Medicine with key '+key+' searched by user '+req.cookies['username'])
             res.render('store.ejs', { list: result });
         });
     }

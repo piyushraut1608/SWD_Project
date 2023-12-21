@@ -18,9 +18,13 @@ const dbHost = dbcon.DB_HOST;
 const dbUser = dbcon.DB_USER;
 const dbPassword = dbcon.DB_PASSWORD;
 const dbDatabase = dbcon.DB_DATABASE;
+const rateLimit=require('express-rate-limit');
 
-
-
+const userLoginLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit to 5 requests per session
+    message: 'Too many signup requests , please try again after 15 minutes',
+  });
 
 
 router.get('/', function (req, res) {
@@ -48,7 +52,8 @@ router.use(session({
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-router.post('/',checkOriginHeader, [
+//Following function logic handles the login of the user
+router.post('/',userLoginLimiter, authorizeJWT, checkOriginHeader, [
     check('username').isString()
         .trim().escape() // INput Validation to check for HTML Entities
         .notEmpty().withMessage("Username is reequired"),
@@ -61,13 +66,10 @@ router.post('/',checkOriginHeader, [
     body('password').isString()
         .escape()
         .blacklist('*', ';', '-', '_', '!', '%', 'SELECT', 'WHERE', 'JOIN', 'OR', 'UNION', 'BY', 'LIKE').withMessage("Invalid Input")
-
-
 ], async function (request, response) {
     const errors = validationResult(request);
     console.log(request.get('Origin'))
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         response.render('userlogin.ejs', {
             InvalidInputAlert: alertMsg
@@ -79,7 +81,6 @@ router.post('/',checkOriginHeader, [
 
         if (bcrypt.compare(request.body.password, hashedPassword)) {
             var username = request.body.username;
-           /// var password = request.body.password; --> Not requiring anymore
 
             if (username && hashedPassword) {
                 con.query('select * from users where username = ? and password = ?', [username, hashedPassword], function (error, results, fields) {
@@ -141,8 +142,6 @@ router.post('/',checkOriginHeader, [
                                 }
                                 console.log(info);
                             });
-        
-                            //response.send('Check you email '+email+' for OTP');
         
                     
                         });

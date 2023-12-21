@@ -6,6 +6,8 @@ const { body, check, validationResult } = require('express-validator');
 var obj = require('./middleware/env.json');
 const { authorizeJWT } = require('./middleware/authMiddleware.js')
 const rateLimit = require('express-rate-limit');
+const {isAdmin}=require('./middleware/rbacMiddleware.js');
+const { logger } = require('./middleware/loggingMiddleware.js');
 
 const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -24,17 +26,17 @@ router.get('*', function (req, res, next) {
 
 router.get('/', function (req, res) {
     db.getallappointment(function (err, result) {
-        console.log(result);
+        logger.info(req.cookies.username+' Navigated to Apoointments page')
         res.render('appointment.ejs', { list: result });
     })
 
 });
 
-router.get('/add_appointment', function (req, res) {
+router.get('/add_appointment',isAdmin,authorizeJWT, function (req, res) {
     res.render('add_appointment.ejs');
 });
 
-router.post('/add_appointment', rateLimiter, authorizeJWT,
+router.post('/add_appointment', rateLimiter,isAdmin,  authorizeJWT,
     [
         check('p_name').isString()
             .notEmpty().withMessage('Patient Name cannot be empty')
@@ -57,17 +59,14 @@ router.post('/add_appointment', rateLimiter, authorizeJWT,
             .blacklist('*', ';', '-', '_', '!', '%', 'SELECT', 'WHERE', 'JOIN', 'OR', 'UNION', 'BY', 'LIKE'),
         check('phone').notEmpty().withMessage('Phone cannot be empty')
             .matches(/^[0-9+]+$/).withMessage('Phone number must contain only numbers 0-9 and a single "+" sign'),
-
-
-
     ],
     function (req, res) {
 
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMsg = errors.array().map(error => error.msg);
-           
             const alertMsg = errors.array()
+            logger.error('Invalid input entered by user '+req.cookies(['username']))
             res.render('add_appointment.ejs', {
                 InvalidAppointAlert: alertMsg,
                 list: []
@@ -75,6 +74,7 @@ router.post('/add_appointment', rateLimiter, authorizeJWT,
         }
         else {
             db.add_appointment(req.body.p_name, req.body.department, req.body.d_name, req.body.date, req.body.time, req.body.email, req.body.phone, function (err, result) {
+                logger.info('Appointment added by user '+req.cookies(['username']))
                 res.redirect('/appointment');
             });
         }
@@ -85,7 +85,6 @@ router.post('/add_appointment', rateLimiter, authorizeJWT,
 router.get('/edit_appointment/:id', rateLimiter, authorizeJWT, function (req, res) {
     var id = req.params.id;
     db.getappointmentbyid(id, function (err, result) {
-        console.log(result);
         res.render('edit_appointment.ejs', { list: result });
     });
 
@@ -121,18 +120,17 @@ router.post('/edit_appointment/:id',
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMsg = errors.array().map(error => error.msg);
-           
-            
             const alertMsg = errors.array()
+            logger.error('Invalid input entered by user '+req.cookies(['username']))
             res.render('edit_appointment.ejs', {
                 InvalidAppointAlert: alertMsg,
                 list: []
             })
-            // res.status(400).json({ errorMsg });    
         }
         else {
             var id = req.params.id;
             db.editappointment(id, req.body.p_name, req.body.department, req.body.d_name, req.body.date, req.body.time, req.body.email, req.body.phone, function (err, result) {
+                logger.info('Appointment with ID '+id+' edited by user '+req.cookies(['username']))
                 res.redirect('/appointment');
             });
         }
@@ -142,7 +140,7 @@ router.post('/edit_appointment/:id',
 router.get('/delete_appointment/:id', rateLimiter, authorizeJWT, function (req, res) {
     var id = req.params.id;
     db.getappointmentbyid(id, function (err, result) {
-        console.log(result);
+        //console.log(result);
         res.render('delete_appointment.ejs', { list: result });
     })
 
@@ -177,16 +175,16 @@ router.post('/delete_appointment/:id', [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const errorMsg = errors.array().map(error => error.msg);
-       
         const alertMsg = errors.array()
+        logger.error('Invalid input entered by user '+req.cookies(['username']))
         res.render('delete_appointment.ejs', {
             InvalidAppointAlert: alertMsg
-        }) 
+        })
     }
     else {
-
         var id = req.params.id;
         db.deleteappointment(id, function (err, result) {
+            logger.info('Appointment with ID '+id+' deleted by user '+req.cookies(['username']))
             res.redirect('/appointment');
         });
     }

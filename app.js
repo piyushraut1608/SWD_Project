@@ -47,10 +47,7 @@ var bodyParser = require ('body-parser');
 app.use(cookieParser());
 
 
-// HTTP request logging with Morgan
 app.use(morgan('combined'));
-
-// Custom auditing middleware
 app.use(auditMiddleware);
 
 var  login = require ('./controllers/login');
@@ -87,7 +84,6 @@ app.use(express.static('./public'));
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 app.use(cookie());
-//app.use(expressValidator());
 app.use(session({
   secret: 'your-secret-key',
   resave: false,
@@ -97,12 +93,6 @@ app.use(session({
     secure: true, // ensure cookies are only sent over HTTPS
   },
 }));
-
-// var server =app.listen(3000 , function(){ ---Default
-
-//   console.log('server started');
-// });
-
 
 
 app.use('/login' ,login);
@@ -125,12 +115,8 @@ app.use('/userlogin',userlogin);
 app.use('/userhome',userhome);
 app.use('/userverify',userverify)
 
-// app.use('/doctors/add_doctor',add_doc);
 
 app.listen(3000,serverOptions,function(){
-  console.log('Server Started')
+  console.log('Server Started on http://localhost:3000')
 })
 
-// server.listen(port, () => {
-//   console.log(`Server is running on https://localhost:${port}`);
-// });

@@ -10,7 +10,7 @@ var { expressjwt: jwt } = require("express-jwt");
 const rateLimit = require('express-rate-limit');
 const bcrypt = require('bcrypt')
 var obj = require('./middleware/env.json');
-const {logger}=require('./middleware/loggingMiddleware.js')
+const { logger } = require('./middleware/loggingMiddleware.js')
 
 
 
@@ -37,15 +37,15 @@ router.post('/', signupLimiter,
         .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long')
         .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
         .matches(/^(.*[!@#$%^&*]){1}/).withMessage('Password must contain at least one special character')
-        .matches(/^(.*\d){2}/).withMessage('Password must contain at least two numbers'), // Input Validation for Strong Password
+        .matches(/^(.*\d){2}/).withMessage('Password must contain at least two numbers'), // Implementation for Strong Password
     check('email').notEmpty().trim().escape() // INput Sanitization for HTML entities in Email
         .isEmail().withMessage('Valid Email required'), //Input Validation for email
     ], async function (req, res) {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             const errorMsg = errors.array().map(error => error.msg);
-           
-            
+
+
             const alertMsg = errors.array()
             res.render('signup.ejs', {
                 PasswordAlert: alertMsg
@@ -57,18 +57,18 @@ router.post('/', signupLimiter,
             var email = req.body.email;
             var username = req.body.username;
             const salt = parseInt(obj.salt);
-            
+
             var defaultSecret = obj.defaultSecret;
             var receivedSecret = req.body.secret;
 
 
-            if (receivedSecret==defaultSecret) {
+            if (receivedSecret == defaultSecret) {
 
                 const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
 
                 db.signup(req.body.username, req.body.email, hashedPassword, email_status);
-                logger.info('User '+username+' signed up as admin')
+                logger.info('User ' + username + ' signed up as admin')
 
                 var token = randomToken(8);
 
@@ -121,17 +121,13 @@ router.post('/', signupLimiter,
 
                 });
             }
-            else{
-               
-               res.status(403).json({ error: 'Forbidden - User does not have access to signup, as wrong secret is provided' });
-                
+            else {
+
+                res.status(403).json({ error: 'Forbidden - User does not have access to signup, as wrong secret is provided' });
+
             }
 
         }
-
-
-
-        // res.redirect('login');
 
 
     });

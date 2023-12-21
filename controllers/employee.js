@@ -5,6 +5,8 @@ var db = require.main.require ('./models/db_controller');
 const { check, validationResult, body } = require('express-validator');
 const { authorizeJWT } = require('./middleware/authMiddleware.js')
 const rateLimit = require('express-rate-limit');
+const {isAdmin}=require('./middleware/rbacMiddleware.js');
+const { logger } = require('./middleware/loggingMiddleware.js');
 
 const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -23,15 +25,16 @@ router.get('*', function(req, res, next){
 	}
 });
 
-router.get('/',authorizeJWT,function(req,res){
+router.get('/',isAdmin,authorizeJWT,function(req,res){
     db.getAllemployee(function(err,result){
+        logger.info(req.cookies.username+' Navigated to Employees page')
         res.render('employee.ejs',{employee : result});
 
     });
    
 });
 
-router.get('/add',authorizeJWT,function(req,res){
+router.get('/add',isAdmin,authorizeJWT,function(req,res){
     res.render('add_employee.ejs');
 });
 
@@ -44,7 +47,6 @@ router.post('/add',rateLimiter,authorizeJWT,[
 ],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('add_employee.ejs', {
             InvalidEmpAddAlert: alertMsg
@@ -60,6 +62,7 @@ router.post('/add',rateLimiter,authorizeJWT,[
 
     db.add_employee(name,email,contact,join_date,role,salary,function(err,result){
         console.log('employee inserted!!');
+        logger.info('New employee added by user '+req.cookies(['username']));
         res.redirect('/employee');
     });}
 
@@ -68,7 +71,7 @@ router.post('/add',rateLimiter,authorizeJWT,[
 
 router.get('/leave',authorizeJWT,function(req,res){
     db.getAllLeave(function(err,result){
-       
+        logger.info(req.cookies.username+' Navigated to Employees Leaves page')
         res.render('leave.ejs',{user : result});
     });
 });
@@ -83,7 +86,6 @@ router.get('/edit_leave/:id',[
 ],rateLimiter,authorizeJWT,function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('edit_leave.ejs', {
             InvalidEditLAlert: alertMsg
@@ -106,7 +108,6 @@ router.post('/edit_leave/:id',rateLimiter,authorizeJWT,[
 ],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('edit_leave.ejs', {
             InvalidAddLAlert: alertMsg
@@ -115,6 +116,7 @@ router.post('/edit_leave/:id',rateLimiter,authorizeJWT,[
     else{
     var id = req.params.id;
     db.edit_leave(id,req.body.name,req.body.leave_type,req.body.from,req.body.to,req.body.reason,function(err,result){
+        logger.info('Leave edited by user '+req.cookies(['username']));
         res.redirect('/employee/leave');
     });}
 });
@@ -124,7 +126,6 @@ router.get('/delete_leave/:id',rateLimiter,authorizeJWT,[
 ],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('delete_leave.ejs', {
             InvalidAddLAlert: alertMsg,
@@ -139,10 +140,11 @@ router.get('/delete_leave/:id',rateLimiter,authorizeJWT,[
     });}
 });
 
-router.post('/delete_leave/:id',function(req,res){
+router.post('/delete_leave/:id',authorizeJWT,rateLimiter,function(req,res){
     var id = req.params.id;
     
     db.deleteleave(id,function(err,result){
+        logger.info('Leave deleted by user '+req.cookies(['username']));
         res.redirect('/employee/leave');
     });
 
@@ -150,7 +152,7 @@ router.post('/delete_leave/:id',function(req,res){
 
 
 
-router.get('/edit_employee/:id',rateLimiter,function(req,res){
+router.get('/edit_employee/:id',isAdmin,authorizeJWT,function(req,res){
     var id = req.params.id;
     db.getEmpbyId(id,function(err,result){
 
@@ -160,7 +162,7 @@ router.get('/edit_employee/:id',rateLimiter,function(req,res){
 
 
 
-router.post('/edit_employee/:id',rateLimiter,[  
+router.post('/edit_employee/:id',authorizeJWT,rateLimiter,[  
     body('name').isAlpha().withMessage('Only Alphabets allowed in Name'),
 body('email').isEmail().withMessage('Enter a valid email'),
 body('contact').isMobilePhone().withMessage('ENter valid Phone Number'),
@@ -168,7 +170,6 @@ body('date').isDate().withMessage('Enter a valid date'),
 body('salary').isNumeric().withMessage('Enter only digits for salary')],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('edit_employee.ejs', {
             InvalidEditEMpAlert: alertMsg
@@ -177,12 +178,13 @@ body('salary').isNumeric().withMessage('Enter only digits for salary')],function
     else{
     var id = req.params.id;
     db.editEmp(id,req.body.name,req.body.email,req.body.contact,req.body.date,req.body.role,function(err,result){
+        logger.info('A employee edited by user '+req.cookies(['username']));
         res.redirect('/employee');
     });}
 
 });
 
-router.get('/delete_employee/:id',function(req,res){
+router.get('/delete_employee/:id',isAdmin,authorizeJWT,function(req,res){
     var id = req.params.id;
     db.getEmpbyId(id,function(err,result){
 
@@ -190,10 +192,11 @@ router.get('/delete_employee/:id',function(req,res){
     });
 });
 
-router.post('/delete_employee/:id',function(req,res){
+router.post('/delete_employee/:id',authorizeJWT,rateLimiter,function(req,res){
     var id = req.params.id;
     
     db.deleteEmp(id,function(err,result){
+        logger.info('A employee deleted by user '+req.cookies(['username']));
         res.redirect('/employee');
     });
 
@@ -204,7 +207,6 @@ router.post('/search',rateLimiter,authorizeJWT,[
 ],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('employee.ejs', {
             InvalidEmpSearchAlert: alertMsg,
@@ -214,7 +216,7 @@ router.post('/search',rateLimiter,authorizeJWT,[
     else{
     var key = req.body.search;
     db.searchEmp(key,function(err,result){
-        console.log(result);
+//    console.log(result);
         
         res.render('employee.ejs',{employee : result});
     });
@@ -234,7 +236,6 @@ router.post('/add_leave',rateLimiter,authorizeJWT,[
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         res.render('add_leave.ejs', {
             InvalidAddLAlert: alertMsg
@@ -243,6 +244,8 @@ router.post('/add_leave',rateLimiter,authorizeJWT,[
     else{
 
     db.add_leave(req.body.name,req.body.id,req.body.leave_type,req.body.from,req.body.to,req.body.reason,function(err,result){
+        logger.info('A leave added by user '+req.cookies(['username']));
         res.redirect('/employee/leave');
+        
     });}
 });

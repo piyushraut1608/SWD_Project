@@ -58,7 +58,6 @@ router.post('/add_departments',authorizeJWT,[
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('add_departments.ejs', {
                 InvalidDeptAlert: alertMsg,
@@ -80,7 +79,6 @@ router.get('/delete_department/:id',authorizeJWT,
 check('id').isNumeric().withMessage('Invalid input in ID')],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('delete_departments.ejs', {
                 InvalidDeptAlert: alertMsg,
@@ -98,7 +96,6 @@ router.post('/delete_department/:id',authorizeJWT,[body('id').trim().escape()
 check('id').isNumeric().withMessage('Invalid input in ID')],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('delete_departments.ejs', {
                 InvalidDeptAlert: alertMsg,
@@ -116,7 +113,6 @@ router.get('/edit_department/:id',authorizeJWT,[body('id').trim().escape()
 check('id').isNumeric().withMessage('Invalid input in ID')],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('edit_departments.ejs', {
                 InvalidDeptAlert: alertMsg,
@@ -135,7 +131,6 @@ router.post('/edit_department/:id',authorizeJWT,[body('id').trim().escape()
 check('id').isNumeric().withMessage('Invalid input in ID')],function(req,res){
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('edit_departments.ejs', {
                 InvalidDeptAlert: alertMsg,

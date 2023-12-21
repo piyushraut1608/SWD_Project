@@ -12,7 +12,7 @@ var obj = require('./middleware/env.json');
 const bcrypt = require('bcrypt');
 const { loggers, Logger } = require('winston');
 var db = require.main.require('./models/db_controller');
-const {logger}=require('./middleware/loggingMiddleware.js')
+const {logger}=require('./middleware/loggingMiddleware.js');
 var dbcon=require('../models/dbcon.json')
 const dbHost = dbcon.DB_HOST;
 const dbUser = dbcon.DB_USER;
@@ -66,7 +66,6 @@ router.post('/', [
 ], async function (request, response) {
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
         response.render('login.ejs', {
             InvalidInputAlert: alertMsg
@@ -77,7 +76,6 @@ router.post('/', [
         const hashedPassword = await db.getPasswordByUsername(request.body.username);
 
 
-        console.log('login.js >>>> HASHED PWD IS ' + hashedPassword);
 
         if (bcrypt.compare(request.body.password, hashedPassword)) {
             var username = request.body.username;

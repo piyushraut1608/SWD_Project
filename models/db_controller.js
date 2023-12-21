@@ -40,8 +40,7 @@ module.exports.signup = function(username,email,password,status,callback) {
     //con.query(query,callback);
     var query =
     'INSERT INTO `admins`(`username`, `email`, `password`, `email_status`) VALUES (?, ?, ?, ?)';
-
-  con.query(query, [username, email, password, status], callback);
+    con.query(query, [username, email, password, status], callback);
 }
 
 module.exports.getuserid = function (email,callback){
