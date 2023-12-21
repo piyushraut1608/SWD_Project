@@ -53,7 +53,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
 //Following function logic handles the login of the user
-router.post('/',userLoginLimiter, authorizeJWT, checkOriginHeader, [
+router.post('/',userLoginLimiter, checkOriginHeader, [
     check('username').isString()
         .trim().escape() // INput Validation to check for HTML Entities
         .notEmpty().withMessage("Username is reequired"),

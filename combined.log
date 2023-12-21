@@ -164,3 +164,37 @@ info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp
 info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:08:36.736Z"}
 info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:09:28.078Z"}
 info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:09:28.080Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-21T02:28:10.857Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-21T02:28:10.881Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:28:10.931Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:28:10.934Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-21T02:28:10.936Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:28:49.051Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:28:49.053Z"}
+info: hashedAdmin Navigated to Doctors page {"timestamp":"2023-12-21T02:28:49.056Z"}
+info: hashedAdmin Navigated to Apoointments page {"timestamp":"2023-12-21T02:29:46.476Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:30:02.115Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:30:02.117Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:30:06.042Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:30:06.046Z"}
+info: hashedAdmin Navigated to Doctors page {"timestamp":"2023-12-21T02:30:06.049Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:30:11.299Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:30:11.302Z"}
+info: hashedAdmin Navigated to Apoointments page {"timestamp":"2023-12-21T02:30:20.788Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:31:27.332Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:31:27.334Z"}
+info: hashedAdmin Navigated to Doctors page {"timestamp":"2023-12-21T02:31:27.336Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:31:29.126Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:31:29.129Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:32:10.472Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:32:10.475Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:34:12.446Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:34:12.448Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-21T02:34:12.448Z"}
+info: Hashed Verified for user : &amp;lt;&amp;gt; {"timestamp":"2023-12-21T02:37:00.024Z"}
+info: Hashed Verified for user : &amp;gt; {"timestamp":"2023-12-21T02:41:08.570Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T02:58:24.668Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T02:59:40.414Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:01.634Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:16.325Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:52.132Z"}
