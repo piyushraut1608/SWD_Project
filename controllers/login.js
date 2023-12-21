@@ -60,8 +60,16 @@ router.post('/', [
         .blacklist('*', ';', '-', '_', '!', '%', 'SELECT', 'WHERE', 'JOIN', 'OR', 'UNION', 'BY', 'LIKE').withMessage("Invalid Input"),
     body('password').isString()
         .escape()
-        .blacklist('*', ';', '-', '_', '!', '%', 'SELECT', 'WHERE', 'JOIN', 'OR', 'UNION', 'BY', 'LIKE').withMessage("Invalid Input")
-
+        .blacklist('*', ';', '-', '_', '!', '%', 'SELECT', 'WHERE', 'JOIN', 'OR', 'UNION', 'BY', 'LIKE').withMessage("Invalid Input"),
+        check('username').notEmpty().withMessage("Username is required"),
+        check('password').notEmpty().withMessage("Password is required"),
+        body('username').isString().trim().escape() // INput Sanitization for HTML entities in Username
+            .matches(/^[a-zA-Z0-9]+$/).withMessage('Username must contain only alphabets & numbers'), // INput Validation for Username
+        body('password').isString().trim().escape() // INput Sanitization for HTML entities in Password
+            .isLength({ min: 8 }).withMessage('Password must be at least 8 characters long')
+            .matches(/[A-Z]/).withMessage('Password must contain at least one uppercase letter')
+            .matches(/^(.*[!@#$%^&*]){1}/).withMessage('Password must contain at least one special character')
+            .matches(/^(.*\d){2}/).withMessage('Password must contain at least two numbers'),
 
 ], async function (request, response) {
     const errors = validationResult(request);

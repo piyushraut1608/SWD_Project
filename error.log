@@ -12,3 +12,8 @@ error: Access forbidden to username hashedAdmin as the role is NOT Registered US
 error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-21T01:52:31.187Z"}
 error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:13.802Z"}
 error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:14.869Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T02:58:24.668Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T02:59:40.414Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:01.634Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:16.325Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T03:00:52.132Z"}
