@@ -5,7 +5,16 @@ var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
 const { body, check, validationResult} = require('express-validator');
+const { authorizeJWT } = require('./middleware/authMiddleware.js')
+const rateLimit = require('express-rate-limit');
+const {isAdmin}=require('./middleware/rbacMiddleware.js');
+const { logger } = require('./middleware/loggingMiddleware.js');
 
+const rateLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // limit to 5 requests per session
+    message: 'Too many requests, please try again after 15 minutes',
+});
 
 
 var db = require.main.require('./models/db_controller');
@@ -32,14 +41,25 @@ var storage = multer.diskStorage({
     }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({ storage: storage,
+    fileFilter: (req, file, cb) => {
+    const allowedExtensions = ['.png', '.jpg', '.jpeg'];
+    const fileExtension = path.extname(file.originalname);
+
+    if (allowedExtensions.includes(fileExtension.toLowerCase())) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file format. Only PNG and JPEG are allowed.'));
+    }
+  }, });
 
 
-router.get('/', function (req, res) {
+router.get('/',isAdmin,authorizeJWT, function (req, res) {
 
     db.getAllDoc(function (err, result) {
         if (err)
             throw err;
+        logger.info(req.cookies.username+' Navigated to Doctors page')
         res.render('doctors.ejs', { list: result })
     });
 
@@ -48,7 +68,7 @@ router.get('/', function (req, res) {
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 
-router.get('/add_doctor', function (req, res) {
+router.get('/add_doctor', isAdmin,authorizeJWT,function (req, res) {
     db.getalldept(function (err, result) {
         res.render('add_doctor.ejs', { list: result });
     });
@@ -71,11 +91,10 @@ upload.single("image"),[
     check('biography').matches(/^[A-Za-z.,\/\s]*$/).withMessage('Invalid Input in Biography')
 
 
-],function (req, res) {
+],isAdmin,authorizeJWT,rateLimiter,function (req, res) {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('add_doctor.ejs', {
                 InvalidDocAlert: alertMsg,
@@ -87,13 +106,14 @@ upload.single("image"),[
     db.add_doctor(req.body.first_name, req.body.last_name, req.body.email, req.body.dob, req.body.gender, req.body.address, req.body.phone, req.file.filename, req.body.department, req.body.biography);
     if (db.add_doctor) {
         console.log('1 doctor inserted');
+        logger.info('New doctor added by user '+req.cookies(['username']));
     }
     res.redirect('add_doctor');
 }
 
 });
 
-router.get('/edit_doctor/:id', function (req, res) {
+router.get('/edit_doctor/:id',isAdmin,authorizeJWT, function (req, res) {
     var id = req.params.id;
 
     db.getDocbyId(id, function (err, result) {
@@ -121,13 +141,12 @@ router.post('/edit_doctor/:id',[
     .blacklist('/','..','*','<','>'),
     check('id').isNumeric().withMessage('Invalid input in ID')
 
-], function (req, res) {
+],authorizeJWT,rateLimiter, function (req, res) {
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
-            res.render('add_doctor.ejs', {
+            res.render('edit_doctor.ejs', {
                 InvalidDocAlert: alertMsg,
                 list:[]
             })
@@ -137,7 +156,7 @@ router.post('/edit_doctor/:id',[
     var id = req.params.id;
     db.editDoc(id, req.body.first_name, req.body.last_name, req.body.email, req.body.dob, req.body.gender, req.body.address, req.body.phone, req.body.image, req.body.department, req.body.biography, function (err, result) {
         if (err) throw err;
-
+        logger.info('A doctor edited by user '+req.cookies(['username']));
         //res.render('edit_doctor.ejs',{list:result});
         res.redirect('back');
     });
@@ -157,13 +176,12 @@ router.post('/delete_doctor/:id', [
     body('id').trim().escape()
     .blacklist('/','..','*','<','>'),
     check('id').isNumeric().withMessage('Invalid input in ID')
-],function (req, res) {
+],authorizeJWT,rateLimiter,function (req, res) {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
-            res.render('add_doctor.ejs', {
+            res.render('delete_doctor.ejs', {
                 InvalidDocAlert: alertMsg,
                 list:[]
             })
@@ -172,35 +190,13 @@ router.post('/delete_doctor/:id', [
     else{
     var id = req.params.id;
     db.deleteDoc(id, function (err, result) {
-
+        logger.info('A doctor deleted by user '+req.cookies(['username']));
         res.redirect('/doctors');
     });
 }
 });
 
-
-
-
-
-
-
-//  router.get('/search',function(req,res){
-//      res.rende
-//      var key = req.body.search;
-//      console.log(key);
-//     db.searchDoc(key,function(err, rows, fields) {
-//         if (err) throw err;
-//       var data=[];
-//       for(i=0;i<rows.length;i++)
-//         {
-//           data.push(rows[i].first_name);
-//         }
-//         res.end(JSON.stringify(data));
-//       });
-//     });
-
-
-router.get('/', function (req, res) {
+router.get('/',isAdmin,authorizeJWT, function (req, res) {
 
     db.getAllDoc(function (err, result) {
         if (err)
@@ -215,11 +211,10 @@ router.post('/search',[
     body('search').trim().escape()
     .blacklist('/','..','*','<','>','!'),
     check('search').isAlpha().withMessage('Invalid Input in Search')
-], function (req, res) {
+],authorizeJWT, function (req, res) {
     
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-       // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
             res.render('doctors.ejs', {
                 InvalidDocAlert: alertMsg,
@@ -228,8 +223,8 @@ router.post('/search',[
     }else{
     var key = req.body.search;
     db.searchDoc(key, function (err, result) {
-        console.log(result);
-
+//    console.log(result);
+        logger.info('A doctor deleted by user '+req.cookies(['username']));
         res.render('doctors.ejs', { list: result });
     });
 }

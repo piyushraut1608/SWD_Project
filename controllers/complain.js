@@ -5,6 +5,7 @@ var db = require.main.require ('./models/db_controller');
 const { authorizeJWT } = require('./middleware/authMiddleware.js')
 const rateLimit = require('express-rate-limit');
 const { check,validationResult } = require('express-validator');
+const {isAdmin}=require('./middleware/rbacMiddleware.js');
 
 const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -38,12 +39,12 @@ router.post('/',[
     .withMessage('Only alphabets, numbers, period, and comma are allowed in subject'),
     
 
-],rateLimiter,authorizeJWT,function(req,res){
+],rateLimiter,authorizeJWT,isAdmin,function(req,res){
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        // return response.status(422).json({ errors: errors.array() });
         const alertMsg = errors.array()
+        logger.error('Invalid input entered by user '+req.cookies(['username']))
         res.render('complain.ejs', {
             InvalidComplainAlert: alertMsg
         })

@@ -47,7 +47,7 @@ router.post('/',resetLimiter,[
         
         if (result.length > 0 ){
 
-            console.log(result);
+    //    console.log(result);
             var newpassword = req.body.password;
             var id =result[0].id;
             db.setpassword(id,newpassword,function(err,result1){

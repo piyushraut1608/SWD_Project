@@ -15,6 +15,7 @@ function authorizeJWT(req, res, next) {
   const token = req.cookies.jwt;
 
   if (!token) {
+    logger.error('Forbidden access as JWT authorization failed. Token expired.')
     return res.status(401).json({ message: "Unauthorized" });
   }
   else {
@@ -35,12 +36,13 @@ function authorizeJWT(req, res, next) {
 
 
 function generateJWT(req, res, user) {
-  // console.log('user--->'+user)
   const token = jwt.sign({ user }, config.jwtSecret, { expiresIn: 900 });
   try {
     const cookieOptions = {
       httpOnly: true,
       maxAge: 60 * 15 * 1000, // 15 minutes in milliseconds
+      sameSite: 'Strict',
+      secure: true,
     };
     res.cookie('jwt', token, cookieOptions);
   } catch (error) {

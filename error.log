@@ -8,3 +8,7 @@ error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:
 error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:26:54.728Z"}
 error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:26:56.911Z"}
 error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-14T22:27:00.188Z"}
+error: Access forbidden to username hashedAdmin as the role is NOT Registered USER {"timestamp":"2023-12-20T23:58:59.419Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-21T01:52:31.187Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:13.802Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:14.869Z"}

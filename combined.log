@@ -106,3 +106,61 @@ info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-15T01:54:48
 info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-15T01:54:50.367Z"}
 info: JWT Token verified. User Authorized {"timestamp":"2023-12-15T01:54:50.369Z"}
 info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-15T01:54:50.370Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-17T01:32:07.259Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-17T01:32:07.312Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-17T01:32:07.336Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-17T01:32:07.343Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-17T01:32:07.345Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-20T23:58:25.754Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-20T23:58:25.800Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-20T23:58:25.826Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-20T23:58:25.834Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-20T23:58:25.835Z"}
+error: Access forbidden to username hashedAdmin as the role is NOT Registered USER {"timestamp":"2023-12-20T23:58:59.419Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-20T23:59:43.659Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-20T23:59:43.674Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-20T23:59:43.675Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-21T01:10:56.090Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-21T01:10:56.142Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:10:56.214Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T01:10:56.221Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-21T01:10:56.223Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:11:52.567Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T01:11:52.574Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-21T01:11:52.576Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:14:10.083Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T01:14:10.099Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:15:01.157Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T01:15:01.161Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:16:31.793Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T01:16:31.796Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:49:01.117Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:49:04.069Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:49:05.133Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:49:06.077Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:52:31.183Z"}
+error: Forbidden access as JWT authorization failed {"timestamp":"2023-12-21T01:52:31.187Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:53:13.798Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:13.802Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T01:53:14.868Z"}
+error: Forbidden access as JWT authorization failed. Token expired. {"timestamp":"2023-12-21T01:53:14.869Z"}
+info: Hashed Verified for user : hashedAdmin {"timestamp":"2023-12-21T02:06:53.934Z"}
+info: User hashedAdmin logged in {"timestamp":"2023-12-21T02:06:53.960Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:06:54.015Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:06:54.021Z"}
+info: hashedAdmin Navigated to Admin Home page {"timestamp":"2023-12-21T02:06:54.023Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:06:57.418Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:06:57.420Z"}
+info: hashedAdmin Navigated to Doctors page {"timestamp":"2023-12-21T02:06:57.423Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:07:01.147Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:07:01.149Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:07:45.332Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:07:45.334Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:08:12.800Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:08:12.804Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:08:15.083Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:08:15.086Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:08:36.735Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:08:36.736Z"}
+info: Access granted to the resoure as the user hashedAdmin is ADMIN {"timestamp":"2023-12-21T02:09:28.078Z"}
+info: JWT Token verified. User Authorized {"timestamp":"2023-12-21T02:09:28.080Z"}
