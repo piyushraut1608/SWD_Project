@@ -11,10 +11,10 @@ Winston is used for implementing server logs.
 Morgan is used for auditing & monitoring purposes.
 
 Landing Page
-![](screenshot/landingPage.PNG)
+![](screenshot/landingPage.png)
 
 Admin Sign Up
-![](screenshot/adminSignUpPage.PNG)
+![](screenshot/adminSignUpPage.png)
 
 Admin Login
 ![](screenshot/adminLoginPage.png)
